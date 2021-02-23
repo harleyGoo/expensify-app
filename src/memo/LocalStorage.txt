@@ -1,0 +1,32 @@
+LocalStorage는 문자열 키만 받을 수 있다.
+새로고침해서 값이 유지된다.
+
+localStorage.setItem('name', 'Hayeon');
+
+localStorage.getItem('name');
+> "Hayeon"
+
+localStorage.removeItem('name');
+
+localStorage.getItem('name');
+> null
+
+localStorage.setItem('age', 28);
+
+localStorage.getItem('age');
+> "28"
+
+JSON.stringify({ age: 28});
+> "{"age":28}"
+
+const json = JSON.stringify({ age: 28});
+> undefined
+
+json
+> "{"age":28}"
+
+JSON.parse(json)
+> {age: 28} (<-Object)
+
+JSON.parse(json).age
+> 28
