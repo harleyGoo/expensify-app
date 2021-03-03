@@ -1,5 +1,4 @@
 // 공식사이트 : redux.js.org
-console.log('111');
 import { createStore } from 'redux';
 
 const store = createStore((state = { count: 0 }, action) => {
