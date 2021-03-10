@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/app.js', //input
+  entry: './src/playground/hoc.js', //input
   output: {
     path: path.join(__dirname, 'public'), //should be absolute path
     filename: 'bundle.js'
