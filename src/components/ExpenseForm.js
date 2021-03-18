@@ -26,20 +26,40 @@ export default class ExpenseForm extends React.Component {
   };
   onAmountChange = (e) => {
     const amount = e.target.value
-    if (amount.match(/^\d*(\.\d{0,2})?$/)) { // 정규표현 참고 사이트 (regex101.com)
+    // regex: 맨 처음에 .을 사용할 수 없음, 문자열을 입력할 수 없음, 소수점 두자리까지만 입력 가능
+    // !amount: 입력한 값의 삭제를 가능하게 함
+    if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) { // 정규표현 참고 사이트 (regex101.com)
       this.setState(() => ({ amount }));
     }
   };
   onDateChange = (createdAt) => {
-    this.setState(() => ({ createdAt }));
+    if (createdAt) {
+      this.setState(() => ({ createdAt }));
+    }
   };
   onFocusChange = ({ focused }) => {
     this.setState(() => ({ calendarFocused: focused }));
   };
+  onSubmit = (e) => {
+    e.preventDefault();
+    if (!this.state.description || !this.state.amount) {
+      this.setState(() => ({ error: 'Please provide description and amount.' }));
+    } else {
+      // Cleaer the error
+      this.setState(() => ({ error: '' }));
+      this.props.onSubmit({
+        description: this.state.description,
+        amount: parseFloat(this.state.amount, 10) * 100,
+        createdAt: this.state.createdAt.valueOf(),
+        note: this.state.note
+      });
+    }
+  };
   render() {
     return (
       <div>
-        <form>
+        {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.onSubmit}>
           <input
             type="text"
             placeholder="Description"
